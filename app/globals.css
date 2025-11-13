@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --font-montserrat: 'Montserrat', sans-serif;
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom font: Rockstone - using system font fallback */
+/* Font removed due to corrupted base64 - using Georgia as fallback */
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-montserrat);
+  background-color: #E4E3D9;
+  @apply text-brand-dark;
+  overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Rockstone', 'Georgia', 'Times New Roman', serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Button resets */
+button {
+  @apply font-montserrat;
+}
+
+/* Image optimization */
+img {
+  @apply max-w-full h-auto;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-brand-dark rounded-full hover:bg-opacity-80;
+}
+
+/* Smooth transitions */
+* {
+  @apply transition-colors duration-300;
+}

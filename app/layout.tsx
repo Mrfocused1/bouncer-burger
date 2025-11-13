@@ -1,0 +1,42 @@
+import type { Metadata } from 'next'
+import { Montserrat } from 'next/font/google'
+import './globals.css'
+import Navbar from '@/components/layout/Navbar'
+import Footer from '@/components/layout/Footer'
+import LoadingProvider from '@/components/providers/LoadingProvider'
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+})
+
+export const metadata: Metadata = {
+  title: 'Ahkii Burger | Premium Burgers in London',
+  description: 'Fresh, juicy, messy burgers made with real flavour. Born in London. Built on flavour. Order now from Ahkii Burger.',
+  keywords: 'burger, London, street food, fast food, premium burgers',
+  openGraph: {
+    title: 'Ahkii Burger | Burgers That Hit Different',
+    description: 'Fresh. Juicy. Messy. Made with real flavour.',
+    type: 'website',
+    locale: 'en_GB',
+  },
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en" className={`${montserrat.variable} overflow-x-hidden`}>
+      <body className="font-montserrat overflow-x-hidden">
+        <LoadingProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </LoadingProvider>
+      </body>
+    </html>
+  )
+}
+
