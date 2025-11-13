@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Button from '@/components/ui/Button'
+import { motion } from 'framer-motion'
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,26 @@ export default function ContactForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  }
+
+  const fieldVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: 'easeOut' },
+    },
+  }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -63,25 +84,39 @@ export default function ContactForm() {
 
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit} className="w-full bg-transparent space-y-4">
+      <motion.form
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        onSubmit={handleSubmit}
+        className="w-full bg-transparent space-y-4"
+      >
         {/* Success Message */}
         {success && (
-          <div className="p-3 bg-green-100 border border-green-300 rounded-lg">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="p-3 bg-green-100 border border-green-300 rounded-lg"
+          >
             <p className="text-green-900 font-medium text-sm">
               Thank you! Your message has been sent successfully. We&apos;ll get back to you soon.
             </p>
-          </div>
+          </motion.div>
         )}
 
         {/* Error Message */}
         {error && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="p-3 bg-red-50 border border-red-200 rounded-lg"
+          >
             <p className="text-red-800 font-medium text-sm">{error}</p>
-          </div>
+          </motion.div>
         )}
 
         {/* Name */}
-        <div>
+        <motion.div variants={fieldVariants}>
           <label htmlFor="name" className="block text-xs font-bold text-white mb-2">
             Full Name
           </label>
@@ -95,10 +130,10 @@ export default function ContactForm() {
             placeholder="Your name"
             className="w-full px-4 py-3 text-sm bg-white/95 text-brand-dark border-2 border-transparent rounded-lg focus:outline-none focus:border-brand-pink hover:border-brand-pink transition-colors placeholder-gray-400"
           />
-        </div>
+        </motion.div>
 
         {/* Email */}
-        <div>
+        <motion.div variants={fieldVariants}>
           <label htmlFor="email" className="block text-xs font-bold text-white mb-2">
             Email Address
           </label>
@@ -112,10 +147,10 @@ export default function ContactForm() {
             placeholder="your@email.com"
             className="w-full px-4 py-3 text-sm bg-white/95 text-brand-dark border-2 border-transparent rounded-lg focus:outline-none focus:border-brand-pink hover:border-brand-pink transition-colors placeholder-gray-400"
           />
-        </div>
+        </motion.div>
 
         {/* Phone */}
-        <div>
+        <motion.div variants={fieldVariants}>
           <label htmlFor="phone" className="block text-xs font-bold text-white mb-2">
             Phone Number
           </label>
@@ -128,10 +163,10 @@ export default function ContactForm() {
             placeholder="+44 123 456 7890"
             className="w-full px-4 py-3 text-sm bg-white/95 text-brand-dark border-2 border-transparent rounded-lg focus:outline-none focus:border-brand-pink hover:border-brand-pink transition-colors placeholder-gray-400"
           />
-        </div>
+        </motion.div>
 
         {/* Subject */}
-        <div>
+        <motion.div variants={fieldVariants}>
           <label htmlFor="subject" className="block text-xs font-bold text-white mb-2">
             Subject
           </label>
@@ -145,10 +180,10 @@ export default function ContactForm() {
             placeholder="What is this about?"
             className="w-full px-4 py-3 text-sm bg-white/95 text-brand-dark border-2 border-transparent rounded-lg focus:outline-none focus:border-brand-pink hover:border-brand-pink transition-colors placeholder-gray-400"
           />
-        </div>
+        </motion.div>
 
         {/* Message */}
-        <div>
+        <motion.div variants={fieldVariants}>
           <label htmlFor="message" className="block text-xs font-bold text-white mb-2">
             Message
           </label>
@@ -162,17 +197,18 @@ export default function ContactForm() {
             rows={4}
             className="w-full px-4 py-3 text-sm bg-white/95 text-brand-dark border-2 border-transparent rounded-lg focus:outline-none focus:border-brand-pink hover:border-brand-pink transition-colors resize-none placeholder-gray-400"
           />
-        </div>
+        </motion.div>
 
         {/* Submit Button */}
-        <button
+        <motion.button
+          variants={fieldVariants}
           type="submit"
           disabled={isLoading}
           className="w-full px-6 py-3 text-sm font-rockstone font-black tracking-tighter bg-brand-pink text-green-900 hover:bg-opacity-90 hover:shadow-lg uppercase rounded-lg transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? 'Sending...' : 'Send Message'}
-        </button>
-      </form>
+        </motion.button>
+      </motion.form>
     </div>
   )
 }

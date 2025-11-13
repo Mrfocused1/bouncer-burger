@@ -8,6 +8,7 @@ import MenuItem from '@/components/menu/MenuItem'
 import { getMenuByCategory } from '@/data/menu'
 import { MenuItem as MenuItemType } from '@/data/menu'
 import { HALAL_MESSAGE } from '@/lib/constants'
+import { motion } from 'framer-motion'
 
 // Note: Metadata should be in a separate layout file for client components
 // export const metadata: Metadata = {
@@ -47,43 +48,100 @@ export default function MenuPage() {
     return result
   }, [allItems, searchQuery, selectedCategory])
 
+  const headingVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.7, ease: 'easeOut' },
+    },
+  }
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
+  }
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+        delayChildren: 0.1,
+      },
+    },
+  }
+
   return (
     <main className="pt-24 pb-20">
       <Container>
         {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-rockstone font-bold text-brand-dark mb-6">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="text-center mb-16"
+        >
+          <motion.h1
+            variants={headingVariants}
+            className="text-5xl sm:text-6xl lg:text-7xl font-rockstone font-bold text-brand-dark mb-6"
+          >
             OUR MENU
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+          </motion.h1>
+          <motion.p variants={textVariants} className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
             Explore our signature burgers available during this limited pop-up test in London. Choose from our collection, add sides, and let us know what you think!
-          </p>
-          <div className="inline-block bg-green-50 border border-green-200 px-4 py-3 rounded-lg">
+          </motion.p>
+          <motion.div
+            variants={textVariants}
+            className="inline-block bg-green-50 border border-green-200 px-4 py-3 rounded-lg"
+          >
             <p className="text-sm font-semibold text-green-800">{HALAL_MESSAGE}</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Search and Filter */}
-        <MenuFilter
-          items={allItems}
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <MenuFilter
+            items={allItems}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+          />
+        </motion.div>
 
         {/* Menu Items Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {filteredItems.map((item, index) => (
             <MenuItem key={item.id} item={item} index={index} />
           ))}
-        </div>
+        </motion.div>
 
         {/* No results message */}
         {filteredItems.length === 0 && (
-          <div className="text-center py-20">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-center py-20"
+          >
             <p className="text-xl text-gray-600">No items found. Try a different search.</p>
-          </div>
+          </motion.div>
         )}
       </Container>
     </main>

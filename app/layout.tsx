@@ -1,3 +1,5 @@
+'use client'
+
 import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import './globals.css'
@@ -5,6 +7,8 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import LoadingProvider from '@/components/providers/LoadingProvider'
 import ScrollToTop from '@/components/ui/ScrollToTop'
+import { AnimatePresence, motion } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -28,12 +32,24 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const pathname = usePathname()
+
   return (
     <html lang="en" className={`${montserrat.variable} overflow-x-hidden`}>
       <body className="font-montserrat overflow-x-hidden">
         <LoadingProvider>
           <Navbar />
-          {children}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={pathname}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
           <ScrollToTop />
           <Footer />
         </LoadingProvider>

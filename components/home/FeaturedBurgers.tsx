@@ -46,6 +46,24 @@ export default function FeaturedBurgers() {
     },
   }
 
+  const burgerItemVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.7, ease: 'easeOut' },
+    },
+  }
+
+  const buttonVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, delay: 0.3, ease: 'easeOut' },
+    },
+  }
+
   return (
     <>
     <section ref={sectionRef} className="relative pt-8 md:pt-32 pb-20">
@@ -95,7 +113,15 @@ export default function FeaturedBurgers() {
               `}</style>
               <div className="-mx-4 sm:-mx-6 flex gap-4 px-4 sm:px-6 w-max">
                 {allBurgers.map((burger, index) => (
-                  <motion.div key={`${burger.id}-${index}`} variants={itemVariants} className="flex-shrink-0 pointer-events-none">
+                  <motion.div
+                    key={`${burger.id}-${index}`}
+                    variants={burgerItemVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex-shrink-0 pointer-events-none"
+                  >
                     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 w-40 md:w-48 lg:w-56 overflow-visible bg-[#E4E3D9] flex items-center justify-center pointer-events-none">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -112,7 +138,13 @@ export default function FeaturedBurgers() {
           </div>
 
           {/* CTA */}
-          <motion.div variants={itemVariants} className="text-center -mt-8">
+          <motion.div
+            variants={buttonVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center -mt-8"
+          >
             <Link href="/menu">
               <Button variant="primary" size="md">
                 MORE
