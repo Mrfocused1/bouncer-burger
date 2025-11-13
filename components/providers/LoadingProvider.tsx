@@ -1,8 +1,22 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import LoadingScreen from '@/components/ui/LoadingScreen'
+
+interface LoadingContextType {
+  isLoading: boolean
+}
+
+const LoadingContext = createContext<LoadingContextType | undefined>(undefined)
+
+export function useLoading() {
+  const context = useContext(LoadingContext)
+  if (context === undefined) {
+    return { isLoading: false }
+  }
+  return context
+}
 
 export default function LoadingProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
@@ -37,11 +51,11 @@ export default function LoadingProvider({ children }: { children: React.ReactNod
   }
 
   return (
-    <>
+    <LoadingContext.Provider value={{ isLoading }}>
       <AnimatePresence mode="wait">
         {isLoading && <LoadingScreen isLoading={isLoading} />}
       </AnimatePresence>
       {children}
-    </>
+    </LoadingContext.Provider>
   )
 }

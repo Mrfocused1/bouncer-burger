@@ -71,6 +71,12 @@ export default function FeaturedBurgers() {
 
           {/* Burger Scrollable Carousel - Desktop & Mobile */}
           <div className="relative mb-12">
+            {/* Mobile gradient overlay - Left side */}
+            <div className="block md:hidden absolute left-0 top-0 bottom-0 w-full bg-gradient-to-r from-[#E4E3D9] via-transparent to-transparent pointer-events-none z-10"></div>
+
+            {/* Mobile gradient overlay - Right side */}
+            <div className="block md:hidden absolute right-0 top-0 bottom-0 w-full bg-gradient-to-l from-[#E4E3D9] via-transparent to-transparent pointer-events-none z-10"></div>
+
             {/* Desktop gradient overlay - Left side */}
             <div className="hidden md:block absolute left-0 top-0 bottom-0 w-32 lg:w-48 bg-gradient-to-r from-[#E4E3D9] to-transparent pointer-events-none z-10"></div>
 

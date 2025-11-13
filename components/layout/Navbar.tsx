@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
+import { useLoading } from '@/components/providers/LoadingProvider'
 
 export default function Navbar() {
+  const { isLoading } = useLoading()
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -16,6 +18,11 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Hide navbar on mobile during loading screen
+  if (isLoading) {
+    return <nav className="hidden md:block" />
+  }
 
   return (
     <nav
@@ -85,7 +92,7 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="md:hidden p-2 transition-colors"
               aria-label="Toggle menu"
             >
               <svg
@@ -110,28 +117,28 @@ export default function Navbar() {
           <div className="md:hidden pb-4 space-y-2 border-t border-gray-200 pt-4">
             <Link
               href="/"
-              className="block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors font-bold"
               onClick={() => setIsOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/menu"
-              className="block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors font-bold"
               onClick={() => setIsOpen(false)}
             >
               Menu
             </Link>
             <Link
               href="/about"
-              className="block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors font-bold"
               onClick={() => setIsOpen(false)}
             >
               About
             </Link>
             <Link
               href="/contact"
-              className="block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors font-bold"
               onClick={() => setIsOpen(false)}
             >
               Contact

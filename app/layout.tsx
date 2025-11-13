@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import LoadingProvider from '@/components/providers/LoadingProvider'
+import ScrollToTop from '@/components/ui/ScrollToTop'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -33,6 +34,7 @@ export default function RootLayout({
         <LoadingProvider>
           <Navbar />
           {children}
+          <ScrollToTop />
           <Footer />
         </LoadingProvider>
       </body>

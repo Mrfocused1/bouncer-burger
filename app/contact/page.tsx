@@ -17,7 +17,7 @@ export default function ContactPage() {
   return (
     <main>
       {/* Full CTA Section with Dark Background */}
-      <section className="py-12 sm:py-20 bg-gradient-to-r from-brand-dark to-brand-dark/90 text-white">
+      <section className="py-8 sm:py-12 bg-gradient-to-r from-brand-dark to-brand-dark/90 text-white">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Left: Text Content */}

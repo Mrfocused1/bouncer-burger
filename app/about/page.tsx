@@ -121,7 +121,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-20 bg-gradient-to-r from-brand-dark to-brand-dark/90 text-white">
+      <section className="py-8 sm:py-12 bg-gradient-to-r from-brand-dark to-brand-dark/90 text-white">
         <Container>
           <div className="max-w-2xl">
             <h2 className="text-4xl sm:text-5xl font-rockstone font-bold mb-6">
@@ -130,15 +130,10 @@ export default function AboutPage() {
             <p className="text-xl text-white/90 mb-8 leading-relaxed">
               Visit our pop-up store during this test phase and try {RESTAURANT_NAME}. Your feedback and support will help us decide whether to open a permanent location in London. We want to hear what you think!
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/menu" className="block">
-                <Button variant="cta" size="lg" className="w-full">
-                  Explore Our Menu
-                </Button>
-              </Link>
-              <a href="#contact" className="block">
-                <Button variant="secondary" size="lg" className="w-full">
-                  Get in Touch
+            <div>
+              <a href="#contact" className="block w-full sm:w-auto">
+                <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                  Get In Touch
                 </Button>
               </a>
             </div>
